@@ -1,5 +1,3 @@
-<p align="center"><img src="public/images/laratter-logo.svg"></p>
-
 ## About Laratter
 
 Laratter is a clone of Twitter in Laravel Framework.
