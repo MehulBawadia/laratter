@@ -31,3 +31,8 @@
 }
 
 @import "tailwindcss/utilities";
+
+body {
+    font-family: 'Inconsolata', monospace;
+    @apply .text-gray-900 .tracking-wider;
+}
