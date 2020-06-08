@@ -3,12 +3,12 @@
 namespace Laratter;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'code', 'first_name', 'last_name', 'username', 'email', 'password',
     ];
 
     /**
@@ -36,4 +36,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Generate the code for the user.
+     *
+     * @return string
+     */
+    public function generateCode()
+    {
+        $lastUser = $this->withTrashed()->latest()->limit(1)->first();
+
+        if (! $lastUser) {
+            return 'LTU-1';
+        }
+
+        $code = last(explode('-', $lastUser->code));
+
+        return 'LTU-' . ++$code;
+    }
 }

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'GenerateAdministratorController@toGeneratePage');
+    Route::get('/generate', 'GenerateAdministratorController@index')->name('admin.generate');
+    Route::post('/generate', 'GenerateAdministratorController@store')->name('admin.generate.store');
+});
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('homePage');
