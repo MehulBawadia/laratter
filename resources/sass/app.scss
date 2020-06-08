@@ -2,4 +2,32 @@
 
 @import "tailwindcss/components";
 
+.formLabel {
+    @apply .block .text-sm .text-gray-700;
+}
+
+.formInput {
+    @apply .block .w-full .px-2 .py-1 .bg-gray-200 .border .border-gray-500 .tracking-widest .rounded .outline-none;
+
+    &:focus {
+        @apply .border-blue-400 .bg-white;
+    }
+}
+
+.formSubmitBtn {
+    @apply .py-1 .px-3 .w-full .text-gray-900 .uppercase .tracking-widest .rounded .shadow-md .bg-blue-400;
+
+    @screen sm {
+        @apply .w-1/3;
+    }
+
+    &:hover, &:focus {
+        @apply .bg-blue-500;
+    }
+
+    &:focus {
+        @apply .outline-none;
+    }
+}
+
 @import "tailwindcss/utilities";
