@@ -19,4 +19,17 @@ abstract class TestCase extends BaseTestCase
     {
         return factory(User::class)->create($userData);
     }
+
+    /**
+     * Login the Administrator for testing.
+     *
+     * @param  array  $userData
+     * @return void
+     */
+    public function loginAdministrator($userData = [])
+    {
+        return auth()->login(
+            $this->generateAdministrator($userData)
+        );
+    }
 }

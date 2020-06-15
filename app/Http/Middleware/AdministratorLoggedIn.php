@@ -15,10 +15,10 @@ class AdministratorLoggedIn
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->id() == 1) {
+        if (auth()->check() && auth()->id() == 1) {
             return $next($request);
         }
 
-        return route('homePage');
+        return redirect(route('homePage'));
     }
 }
