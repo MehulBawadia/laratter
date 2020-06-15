@@ -44,11 +44,13 @@ class GenerateAdministratorController extends Controller
 
         Mail::to($user->email)->send(new AdminGenerated);
 
+        auth()->login($user);
+
         return response()->json([
             'status' => 'success',
             'title' => 'Success !',
             'message' => 'Administrator generated successfully.',
-            'redirectTo' => route('homePage')
+            'redirectTo' => route('admin.dashboard')
         ]);
     }
 

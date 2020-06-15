@@ -52,8 +52,25 @@ class GenerateAdministratorTest extends TestCase
                 'status' => 'success',
                 'title' => 'Success !',
                 'message' => 'Administrator generated successfully.',
-                'redirectTo' => route('homePage')
+                'redirectTo' => route('admin.dashboard')
             ]);
+
+        $this->assertNotEmpty(User::all());
+    }
+
+    /** @test */
+    public function guest_is_logged_in_after_becoming_administrator()
+    {
+        $this->assertEmpty(User::all());
+
+        $this->assertFalse(auth()->check());
+
+        $this->postJson($this->postRoute, $this->mergeData())
+            ->assertJson([
+                'redirectTo' => route('admin.dashboard')
+            ]);
+
+        $this->assertTrue(auth()->check());
 
         $this->assertNotEmpty(User::all());
     }
