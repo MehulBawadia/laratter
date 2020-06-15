@@ -38,6 +38,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the dashboard link of the authenticated user.
+     *
+     * @return string
+     */
+    public function getDashboard()
+    {
+        if (auth()->id() == 1) {
+            return route('admin.dashboard');
+        }
+
+        return route('user.dashboard');
+    }
+
+    /**
      * Generate the code for the user.
      *
      * @return string
