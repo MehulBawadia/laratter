@@ -4,6 +4,8 @@ namespace Laratter\Http\Controllers;
 
 use Laratter\User;
 use Illuminate\Http\Request;
+use Laratter\Mail\AdminGenerated;
+use Illuminate\Support\Facades\Mail;
 
 class GenerateAdministratorController extends Controller
 {
@@ -34,9 +36,13 @@ class GenerateAdministratorController extends Controller
             'password' => 'required',
         ]);
 
+        session(['password' => $request->password]);
+
         $request['code'] = (new User)->generateCode();
         $request['password'] = bcrypt($request->password);
-        User::create($request->all());
+        $user = User::create($request->all());
+
+        Mail::to($user->email)->send(new AdminGenerated);
 
         return response()->json([
             'status' => 'success',

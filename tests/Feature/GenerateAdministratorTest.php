@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Laratter\User;
 use Tests\TestCase;
+use Laratter\Mail\AdminGenerated;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -54,6 +56,18 @@ class GenerateAdministratorTest extends TestCase
             ]);
 
         $this->assertNotEmpty(User::all());
+    }
+
+    /** @test */
+    public function shoots_mail_to_the_given_email_address_on_becoming_an_administrator()
+    {
+        Mail::fake();
+
+        $this->postJson($this->postRoute, $this->mergeData());
+
+        Mail::assertSent(AdminGenerated::class, function ($mail) {
+            return $mail->hasTo(User::first()->email);
+        });
     }
 
     /** @test */
