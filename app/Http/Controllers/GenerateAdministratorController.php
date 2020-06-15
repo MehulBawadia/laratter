@@ -16,6 +16,10 @@ class GenerateAdministratorController extends Controller
      */
     public function index()
     {
+        if (User::first()) {
+            return redirect(route('admin.login'));
+        }
+
         return view('admin.generate');
     }
 

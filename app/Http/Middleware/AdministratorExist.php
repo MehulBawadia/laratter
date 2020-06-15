@@ -19,6 +19,6 @@ class AdministratorExist
             return $next($request);
         }
 
-        return route('homePage');
+        return redirect(route('admin.generate'));
     }
 }

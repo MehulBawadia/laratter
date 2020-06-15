@@ -88,6 +88,15 @@ class GenerateAdministratorTest extends TestCase
     }
 
     /** @test */
+    public function guest_cannot_access_the_generate_administrator_section_if_they_already_exist()
+    {
+        $this->generateAdministrator();
+
+        $this->get($this->getRoute)
+            ->assertRedirect(route('admin.login'));
+    }
+
+    /** @test */
     public function first_name_field_is_required()
     {
         $this->post($this->postRoute, $this->mergeData(['first_name' => '']))
