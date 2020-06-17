@@ -17,7 +17,12 @@ abstract class TestCase extends BaseTestCase
      */
     public function generateAdministrator($userData = [])
     {
-        return factory(User::class)->create($userData);
+        $attributes = array_merge([
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+        ], $userData);
+
+        return factory(User::class)->create($attributes);
     }
 
     /**

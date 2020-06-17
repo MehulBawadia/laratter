@@ -17,12 +17,18 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    $username = str_replace(
+        ['!','@','$','%','^','&','*','(',')','#','_','-','.','\''],
+        '_',
+        $faker->unique()->userName
+    );
+
     return [
         'code' => (new User)->generateCode(),
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'username' => 'admin',
-        'email' => 'admin@example.com',
+        'username' => $username,
+        'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('Password'),
     ];
 });
