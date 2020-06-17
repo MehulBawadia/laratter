@@ -15,6 +15,24 @@
     @yield('pageStyles')
 </head>
 <body class="bg-gray-300">
+    @if (auth()->id() == 1)
+        <header class="bg-gray-900 px-3 py-1">
+            <div class="container mx-auto">
+                <div class="flex flex-wrap justify-between">
+                    <div>
+                        <div class="w-16">
+                            <a href="{{ route('admin.dashboard') }}"><img src="{{ asset('/images/laratter-logo.svg') }}" alt="{{ config('app.name') }}" title="{{ config('app.name') }}" loading="lazy" /></a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <x-admin-nav-link route="admin.dashboard">Dashboard</x-admin-nav-link>
+                        <x-admin-nav-link route="admin.logout">Logout</x-admin-nav-link>
+                    </div>
+                </div>
+            </div>
+        </header>
+    @endif
+
     @yield('content')
 
     <script src="{{ asset('/js/app.js') }}"></script>
