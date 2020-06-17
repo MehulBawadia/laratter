@@ -27,6 +27,12 @@ Route::middleware('adminExists')->group(function () {
         Route::middleware('adminLoggedIn')->group(function () {
             Route::get('/dashboard', 'DashboardController@index')->name('.dashboard');
             Route::get('/logout', 'DashboardController@logout')->name('.logout');
+
+            Route::prefix('account-settings')->group(function () {
+                Route::get('/', 'AccountSettingsController@index')->name('.accountSettings');
+                Route::patch('/update-general', 'AccountSettingsController@udpateGeneral')
+                    ->name('.accountSettings.updateGeneral');
+            });
         });
     });
 

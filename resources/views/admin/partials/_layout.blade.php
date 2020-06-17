@@ -26,6 +26,7 @@
                     </div>
                     <div class="flex items-center">
                         <x-admin-nav-link route="admin.dashboard">Dashboard</x-admin-nav-link>
+                        <x-admin-nav-link route="admin.accountSettings">Account Settings</x-admin-nav-link>
                         <x-admin-nav-link route="admin.logout">Logout</x-admin-nav-link>
                     </div>
                 </div>
