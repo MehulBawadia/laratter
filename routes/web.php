@@ -32,6 +32,8 @@ Route::middleware('adminExists')->group(function () {
                 Route::get('/', 'AccountSettingsController@index')->name('.accountSettings');
                 Route::patch('/update-general', 'AccountSettingsController@udpateGeneral')
                     ->name('.accountSettings.updateGeneral');
+                Route::patch('/change-password', 'AccountSettingsController@changePassword')
+                    ->name('.accountSettings.changePassword');
             });
         });
     });
