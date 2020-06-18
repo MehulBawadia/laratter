@@ -46,6 +46,9 @@ Route::middleware('adminExists')->group(function () {
         Route::get('/login', 'LoginController@index')->name('.login');
         Route::post('/login', 'LoginController@check')->name('.login.check');
 
+        Route::get('/register', 'RegisterController@index')->name('.register');
+        Route::post('/register', 'RegisterController@store')->name('.register.store');
+
         Route::middleware('userLoggedIn')->group(function () {
             Route::get('/dashboard', 'DashboardController@index')->name('.dashboard');
             Route::get('/logout', 'DashboardController@logout')->name('.logout');
