@@ -18,6 +18,35 @@
     @yield('content')
 
     <script src="{{ asset('/js/app.js') }}"></script>
+    <script>
+        $('body').on('blur', 'input', function (e) {
+            var self = $(e.target);
+
+            if (self.hasClass('border-red-500')) {
+                self.removeClass('border-red-500');
+            }
+            if ($('body').find('span[data-name='+self.attr('id')+']').hasClass('text-xs text-red-500')) {
+                $('body').find('span[data-name='+self.attr('id')+']').removeClass('text-xs text-red-500').html('');
+            }
+        });
+
+        function displayGrowlNotification(res)
+        {
+            $.iGrowl({
+                type: res.status == 'success' ? 'success' : 'error',
+                title: res.title,
+                message: res.message,
+                icon: res.status == 'success' ? 'feather-check' : 'feather-cross',
+                delay: res.delay || 0,
+                placement: {
+                    x: 'left',
+                    y: 'bottom'
+                },
+                animShow: 'flash',
+                animHide: 'zoomOut'
+            });
+        }
+    </script>
     @yield('pageScripts')
 </body>
 </html>
