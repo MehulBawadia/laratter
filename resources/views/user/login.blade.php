@@ -43,6 +43,10 @@
                     </form>
                 </div>
             </div>
+
+            <div class="text-center mt-5">
+                <a class="text-blue-800 font-bold tracking-widest hover:text-blue-700" href="{{ route('user.register') }}">Register</a>
+            </div>
         </div>
     </section>
 @endsection
