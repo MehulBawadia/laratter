@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
 
         'adminExists' => \Laratter\Http\Middleware\AdministratorExist::class,
         'adminLoggedIn' => \Laratter\Http\Middleware\AdministratorLoggedIn::class,
+        'userLoggedIn' => \Laratter\Http\Middleware\UserLoggedIn::class,
     ];
 }
