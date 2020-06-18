@@ -38,9 +38,7 @@ Route::middleware('adminExists')->group(function () {
         });
     });
 
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('homePage');
+    Route::get('/', 'HomeController@index')->name('homePage');
 
     Route::name('user')->namespace('User')->group(function () {
         Route::get('/login', 'LoginController@index')->name('.login');
