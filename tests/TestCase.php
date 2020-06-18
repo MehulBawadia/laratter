@@ -37,4 +37,28 @@ abstract class TestCase extends BaseTestCase
             $this->generateAdministrator($userData)
         );
     }
+
+    /**
+     * Create a fake user for testing.
+     *
+     * @param  array  $userData
+     * @return \Laratter\User
+     */
+    public function createUser($userData = [])
+    {
+        return factory(User::class)->create($userData);
+    }
+
+    /**
+     * Login the fake user for testing.
+     *
+     * @param  array  $userData
+     * @return void
+     */
+    public function loginUser($userData = [])
+    {
+        return auth()->login(
+            $this->createUser($userData)
+        );
+    }
 }

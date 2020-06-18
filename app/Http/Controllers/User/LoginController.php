@@ -1,0 +1,72 @@
+<?php
+
+namespace Laratter\Http\Controllers\User;
+
+use Illuminate\Routing\Controller;
+use Laratter\Http\Requests\LoginFormRequest;
+
+class LoginController extends Controller
+{
+    /**
+     * Display the login form.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function index()
+    {
+        if (auth()->check()) {
+            return redirect(route('user.dashboard'));
+        }
+
+        return view('user.login');
+    }
+
+    /**
+     * Check the credentials and login the user.
+     *
+     * @param  \Laratter\Http\Requests\LoginFormRequest $request
+     * @return \Response
+     */
+    public function check(LoginFormRequest $request)
+    {
+        $loggedIn = $this->processCredentials($request);
+
+        if ($loggedIn) {
+            return response()->json([
+                'status' => 'success',
+                'title' => 'Success !',
+                'delay' => 3000,
+                'message' => 'Logged in successfully. Redirecting...',
+                'redirectTo' => auth()->user()->getDashboard()
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'failed',
+            'title' => 'Failed !',
+            'delay' => 3000,
+            'message' => 'Invalid Credentials.'
+        ]);
+    }
+
+    /**
+     * Match the login credentials with that in the database table.
+     *
+     * @param  \Laratter\Http\Requests\LoginFormRequest $request
+     * @return boolean
+     */
+    public function processCredentials($request)
+    {
+        $field = filter_var($request->usernameOrEmail, FILTER_VALIDATE_EMAIL)
+                    ? 'email'
+                    : 'username';
+
+        $request->merge([$field => $request->usernameOrEmail]);
+
+        if (auth()->attempt($request->only($field, 'password'))) {
+            return true;
+        }
+
+        return false;
+    }
+}

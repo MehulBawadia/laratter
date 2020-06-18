@@ -41,4 +41,14 @@ Route::middleware('adminExists')->group(function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('homePage');
+
+    Route::name('user')->namespace('User')->group(function () {
+        Route::get('/login', 'LoginController@index')->name('.login');
+        Route::post('/login', 'LoginController@check')->name('.login.check');
+
+        Route::middleware('userLoggedIn')->group(function () {
+            Route::get('/dashboard', 'DashboardController@index')->name('.dashboard');
+            Route::get('/logout', 'DashboardController@logout')->name('.logout');
+        });
+    });
 });
