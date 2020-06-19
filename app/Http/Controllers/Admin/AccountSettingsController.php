@@ -31,12 +31,7 @@ class AccountSettingsController extends Controller
     {
         auth()->user()->update($request->all());
 
-        return response()->json([
-            'status' => 'success',
-            'title' => 'Success !',
-            'delay' => 3000,
-            'message' => 'General Settings updated successfully.'
-        ]);
+        return $this->successResponse('General Settings updated successfully.');
     }
 
     /**
@@ -48,21 +43,11 @@ class AccountSettingsController extends Controller
     public function changePassword(ChangePasswordRequest $request)
     {
         if (! Hash::check($request->current_password, auth()->user()->password)) {
-            return response()->json([
-                'status' => 'failed',
-                'title' => 'Failed !',
-                'delay' => 3000,
-                'message' => 'Invalid current password.'
-            ]);
+            return $this->failedResponse('Invalid current password.');
         }
 
         auth()->user()->update(['password' => bcrypt($request->new_password)]);
 
-        return response()->json([
-            'status' => 'success',
-            'title' => 'Success !',
-            'delay' => 3000,
-            'message' => 'Password updated successfully.'
-        ]);
+        return $this->successResponse('Password updated successfully.');
     }
 }

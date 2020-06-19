@@ -50,11 +50,8 @@ class GenerateAdministratorController extends Controller
 
         auth()->login($user);
 
-        return response()->json([
-            'status' => 'success',
-            'title' => 'Success !',
-            'message' => 'Administrator generated successfully.',
-            'redirectTo' => route('admin.dashboard')
+        return $this->successResponse('Administrator generated successfully. Redirecting...', [
+            'redirectTo' => auth()->user()->getDashboard()
         ]);
     }
 

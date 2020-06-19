@@ -51,11 +51,8 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return response()->json([
-            'status' => 'success',
-            'title' => 'Success !',
-            'message' => 'User registered successfully. Redirecting...',
-            'redirectTo' => route('user.dashboard')
+        return $this->successResponse('User registered successfully. Redirecting...', [
+            'redirectTo' => auth()->user()->getDashboard()
         ]);
     }
 }

@@ -51,7 +51,7 @@ class GenerateAdministratorTest extends TestCase
             ->assertJson([
                 'status' => 'success',
                 'title' => 'Success !',
-                'message' => 'Administrator generated successfully.',
+                'message' => 'Administrator generated successfully. Redirecting...',
                 'redirectTo' => route('admin.dashboard')
             ]);
 

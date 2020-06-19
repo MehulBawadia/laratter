@@ -2,7 +2,7 @@
 
 namespace Laratter\Http\Controllers\User;
 
-use Illuminate\Routing\Controller;
+use Laratter\Http\Controllers\Controller;
 use Laratter\Http\Requests\LoginFormRequest;
 
 class LoginController extends Controller
@@ -32,21 +32,12 @@ class LoginController extends Controller
         $loggedIn = $this->processCredentials($request);
 
         if ($loggedIn) {
-            return response()->json([
-                'status' => 'success',
-                'title' => 'Success !',
-                'delay' => 3000,
-                'message' => 'Logged in successfully. Redirecting...',
+            return $this->successResponse('Logged in successfully. Redirecting...', [
                 'redirectTo' => auth()->user()->getDashboard()
             ]);
         }
 
-        return response()->json([
-            'status' => 'failed',
-            'title' => 'Failed !',
-            'delay' => 3000,
-            'message' => 'Invalid Credentials.'
-        ]);
+        return $this->failedResponse('Invalid Credentials.');
     }
 
     /**
